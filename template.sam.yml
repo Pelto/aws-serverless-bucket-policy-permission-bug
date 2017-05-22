@@ -5,6 +5,8 @@ Resources:
 
   Bucket:
     Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub '${AWS::Region}-${AWS::StackName}-bucket'
       
   Function:
     Type: AWS::Serverless::Function
@@ -17,7 +19,7 @@ Resources:
           Statement: 
             - Effect: Allow
               Action: s3:*
-              Resource: !Sub "arn:aws:s3:::${Bucket}*"
+              Resource: !Sub "arn:aws:s3:::${AWS::Region}-${AWS::StackName}-bucket*"
       Events:
         Upload:
           Properties:
